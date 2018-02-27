@@ -13,6 +13,7 @@
     "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-favicon": "^2.0.0",
+    "express-fileupload": "^0.4.0",
     "express-session": "^1.15.6",
     "leaflet-geosearch": "^2.6.0",
     "mongoose": "^5.0.0-rc0",
