@@ -1,0 +1,16 @@
+<h1>Your account has been created successfuly!</h1>
+<h2>Proceeding to main page in </h2>
+<h2 id="timer"></h2>
+
+
+<script>
+    var time = 5;
+setInterval(function(){
+    document.getElementById("timer").innerHTML= time;
+    time --;
+},1000);    
+    
+setTimeout(function(){
+    window.location = "http://localhost:3000/";
+},5000);
+</script>

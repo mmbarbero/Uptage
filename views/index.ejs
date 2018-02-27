@@ -1,0 +1,60 @@
+
+<% include partials/navbar_main %>
+<div id="indexContainer">
+<div class="top">
+    <div class="title">
+        <video src="resources/video_cortado_2.1.mp4" preload="auto" autoplay="auto" loop="loop"></video>
+
+
+        <div id="overlay">      
+            <div id="searchbox">
+                <div id="main-search-input">
+                    <div class="input-group col-md-12">
+                        <input type="text" class="form-control input-lg" placeholder="Search..." />
+                        <span class="input-group-btn">
+                            <button class="btn btn-info btn-lg" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+        </div> 
+    </div></div>
+
+
+<div id="content">
+    <div class="containe-fluid">
+
+        <div class="row">
+            <div class="col-lg-4 col-sm-6">
+                <h1 class="title">Latest uploads</h1>
+            </div>
+        </div>
+        <div class="row">
+            <%  for (var i = 0; i < videos.length; i++){ %>
+
+            <div class="col-lg-4 col-sm-6">
+                <div class="thumbnail">
+                    <label><a href="videos/<%=videos[i]._id%>"> <video width="100%" height="190">
+                        <source src="<%=videos[i].path%>" type="video/mp4">
+
+                        </video></a><h4>
+                        <%=videos[i].title %>
+                        </h4>
+                    </label>
+
+                </div>
+            </div>
+
+            <%    } %>
+        </div>
+
+    </div>
+</div>
+</div>
+<% include partials/footer %>

@@ -1,0 +1,150 @@
+<% include partials/navbar_others %>
+<div class="jumbotron" id="uploadJumbo">
+    <div id="uploadContainer" class="container">
+        <div id="uploadContent">
+            <div class="row">
+                <h2>Upload your video!</h2>
+            </div>        
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <form action="/upload" method="post" id="uploadForm" encType="multipart/form-data">
+                        <input id="input-b1" name="videoUpload" type="file" accept=".mp4" class="file">
+                        <div class="form-group">
+                            <label for="videoTitle">Video Title:</label>
+                            <input type="text" class="form-control" name="videoTitle" placeholder="Enter video title..">
+                        </div>
+                        <div class="form-group">
+                            <label for="videoDescription">Video description:</label>
+                            <textarea class="form-control" rows="5" name="videoDescription" placeholder="Write your story here..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="videoTagInput">Tags:</label>
+                            <input type="text" class="form-control" name="videoTags" placeholder="Enter tags that describe your video..">
+                            <small class="form-text text-muted">Write tags separated by spaces</small>
+                        </div>
+                        <div style="margin-top:-5px" class="row">
+                            <div class="form-group col-md-5">
+                                <label for="videoCatSelect">Choose category:</label>
+                                <select class="form-control" name="videoCategory">
+                                    <option>Select one of these</option>
+                                    <option value="Animals">Animals</option>
+                                    <option value="Politics">Politics</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Crime">Crime</option>
+                                    <option value="Accidents">Accidents</option>
+                                    <option value="Weather/Nature">Weather/Nature</option>
+                                    <option value="Sport">Sport</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="form-group col-md-5">
+                                <label for="videoDateInput">Choose when you shot the video:</label>
+                                <div class='input-group date' id='videoDateTimepicker'>
+                                    <input name="videoDate" type='text' class="form-control" />
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                         <label for="videoLocation">Enter video coordinates:</label>
+                        
+                        <h4><a id="modal_trigger2" href="#modal2">Open map</a>
+                </h4>
+                        <br>
+                             <div style="margin-top:-5px" class="row">
+                            <div class="form-group col-md-5">   
+                            <input type="number" step="0.000000000000000001" class="form-control" id="lat" name="videoXCoord" placeholder="Latitude">
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="form-group col-md-5">
+                               <input type="number" step="0.000000000000000001" class="form-control" id="lng" name="videoYCoord" placeholder="Longitude">
+                            </div>
+                        </div>
+                        <div class="row">
+                         <div class="col-md-5"></div>
+                            <div class="col-md-2"><button type="submit" class="btn btn-block btn-danger">Upload</button></div>
+                          <div class="col-md-5"></div>
+                            </div>
+                    </form>
+                </div>
+                <div class="col-md-2"></div>
+            </div>  
+        </div> 
+    </div>
+</div>
+<div id="modal2" class="popupContainer" style="width:1040px;height:630px; display:none;">
+
+        <section class="popupBody">
+            <div id="modal2" class="video_map">
+                <div id="map" class="mapContainer">
+
+                    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+
+                    <script defer="defer" type="text/javascript">
+                        
+
+                        var bounds  = new L.LatLngBounds(new L.LatLng(-90, -180), new L.LatLng(90, 180));
+                        
+                        var map = L.map('map').setView([38.706741, -9.152644], 3);
+                        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                            maxZoom: 18,
+                            minZoom: 2,
+                            maxBounds: bounds,
+                            id: 'mapbox.streets',
+                            accessToken: 'pk.eyJ1IjoibG9yZTQ3MyIsImEiOiJjamJkZnJwOHgxaDczMnBvZjF1NjdzaWp5In0.7LvZDR8hnbAFdrtEI6NuSw'
+                        }).addTo(map);
+
+                        map.setMaxBounds(bounds);
+                        
+                        var GeoSearchControl = window.GeoSearch.GeoSearchControl;
+        var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
+        var provider = new OpenStreetMapProvider({});
+                        var searchControl = new GeoSearchControl({
+            provider: provider,
+            style: 'bar',
+            showMarker: false,
+            marker: {
+                draggable: true
+            },
+            autoClose: true,
+            keepResult: true,
+        });
+         map.addControl(searchControl);               
+                        
+map.on('geosearch/showlocation', function(e) {
+            $("#lat").val(e.location.y);
+            $("#lng").val(e.location.x);
+
+        });
+
+
+        map.on('geosearch/marker/dragend', function(e) {
+            $("#lat").val(parseFloat(e.location.lat));
+            $("#lng").val(parseFloat(e.location.lng));
+        });
+                        
+                       function onMapClick(e) {
+             var popup = L.popup()
+                 .setLatLng(e.latlng)
+                 .setContent("" + e.latlng)
+                 .bindPopup("" + e.latlng)
+                 .openOn(map);
+             
+             console.log(e.latlng);
+              document.getElementById("lat").value = e.latlng.lat;
+            document.getElementById("lng").value = e.latlng.lng;
+         }
+                        map.on('click', onMapClick);
+                    </script>
+                </div>
+            </div>
+
+        </section>
+    </div>
+
+<% include partials/footer %>
