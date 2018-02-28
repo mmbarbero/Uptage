@@ -49,7 +49,9 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
+var port = process.env.PORT || 8000
 
-app.listen(3000, function(){
-    console.log("Server Started!");
+
+app.listen(port, function(){
+    console.log("Server Started! Running on port "+ port);
 })
