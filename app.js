@@ -18,7 +18,7 @@ var videosRoutes = require("./routes/videos"),
     indexRoutes = require("./routes/index")
 
 
-mongoose.connect("mongodb://localhost:3333/uptage");
+mongoose.connect("mongodb://admin:password@ds157528.mlab.com:57528/uptage");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
