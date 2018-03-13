@@ -20,7 +20,7 @@ router.post("/upload",isLoggedIn, function(req, res){
     
     if(req.body.videoTitle &&
        req.body.videoDescription &&
-       req.body.videoTags &&
+        req.body.videoTags &&
        req.body.videoCategory &&
        req.body.videoDate &&
        req.body.videoXCoord &&
