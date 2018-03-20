@@ -7,7 +7,7 @@ var express = require("express"),
     path = require("path"),
     fs = require("fs");
 
-var directory = "/videos/"
+var directory = "/app/public/videos/"
 
 var accKey = process.env.ACCKEY,
     secKey = process.env.SECKEY;
