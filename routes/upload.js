@@ -7,7 +7,7 @@ var express = require("express"),
     path = require("path"),
     fs = require("fs");
 
-var directory = "/videos"
+var directory = "/public/videos"
 
 var accKey = process.env.ACCKEY,
     secKey = process.env.SECKEY;
@@ -25,6 +25,7 @@ function deleteFs() {
         if (err) throw err;
 
         for (const file of files) {
+        
             fs.unlink(path.join(directory, file), err => {
                 if (err) throw err;
             });
