@@ -7,7 +7,7 @@ var express = require("express"),
     path = require("path"),
     fs = require("fs");
 
-var directory = "/videos"
+var directory = "/videos/"
 
 var accKey = process.env.ACCKEY,
     secKey = process.env.SECKEY;
@@ -33,16 +33,16 @@ function deleteFs() {
     });
 }
 
-// var storage = multer.diskStorage({
-//     destination: directory,
-//     filename: function (req, file, cb) {
-//         crypto.pseudoRandomBytes(16, function (err, raw) {
-//             if (err) return cb(err)
+var storage = multer.diskStorage({
+    destination: directory,
+    filename: function (req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if (err) return cb(err)
 
-//             cb(null, raw.toString('hex') + path.extname(file.originalname))
-//         })
-//     }
-// })
+            cb(null, raw.toString('hex') + path.extname(file.originalname))
+        })
+    }
+})
 
 var upload = multer({ storage: storage, fileFilter: function(req, file, callback){
 
