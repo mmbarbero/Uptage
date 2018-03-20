@@ -20,18 +20,18 @@ var minioClient = new minio.Client({
         secretKey: secKey
 });
 
-function deleteFs() {
-    fs.readdir(directory, (err, files) => {
-        if (err) throw err;
+// function deleteFs() {
+//     fs.readdir(directory, (err, files) => {
+//         if (err) throw err;
 
-        for (const file of files) {
+//         for (const file of files) {
         
-            fs.unlink(path.join(directory, file), err => {
-                if (err) throw err;
-            });
-        }
-    });
-}
+//             fs.unlink(path.join(directory, file), err => {
+//                 if (err) throw err;
+//             });
+//         }
+//     });
+// }
 
 var storage = multer.diskStorage({
     destination: directory,
