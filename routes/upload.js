@@ -1,7 +1,59 @@
-var express = require("express");
-var router = express.Router();
-var video = require("../models/video");
-var fileUpload = require("express-fileupload");
+var express = require("express"),
+    router = express.Router(),
+    multer = require("multer"),
+    crypto = require("crypto"),
+    minio = require("minio"),
+    video = require("../models/video"),
+    path = require("path"),
+    fs = require("fs");
+
+var directory = "/videos"
+
+var accKey = process.env.ACCKEY,
+    secKey = process.env.SECKEY;
+
+var minioClient = new minio.Client({
+        endPoint: "192.168.5.100",
+        port: 9000,
+        secure: false,
+        accessKey: accKey,
+        secretKey: secKey
+});
+
+function deleteFs() {
+    fs.readdir(directory, (err, files) => {
+        if (err) throw err;
+
+        for (const file of files) {
+            fs.unlink(path.join(directory, file), err => {
+                if (err) throw err;
+            });
+        }
+    });
+}
+
+var storage = multer.diskStorage({
+    destination: directory,
+    filename: function (req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if (err) return cb(err)
+
+            cb(null, raw.toString('hex') + path.extname(file.originalname))
+        })
+    }
+})
+
+var upload = multer({ storage: storage, fileFilter: function(req, file, callback){
+
+    var ext = path.extname(file.originalname);
+        if(ext !== ".mp4" && ext !== ".avi" && ext !== ".mpeg"){
+            return callback(new Error("Only videos are allowed!"))
+            
+    }
+        callback(null, true)
+}
+})
+
 
 router.get("/upload", isLoggedIn, function(req, res){
 
@@ -9,68 +61,53 @@ router.get("/upload", isLoggedIn, function(req, res){
 
 })
 
-router.post("/upload",isLoggedIn, function(req, res){
+router.post("/upload",isLoggedIn, upload.single("videoUpload"), function(req, res){
+    var date = new Date();
+    var videoData = {
+        title: req.body.videoTitle,
+        description: req.body.videoDescription,
+        tags: req.body.videoTags,
+        category: req.body.videoCategory,
+        author: req.user.username,
+        uploadDate: date.toISOString(),
+        date: req.body.videoDate,
+        location: {
+            type: "Point",
+            coordinates: [req.body.videoYCoord, req.body.videoXCoord]
+        },
+        path: "http://192.168.5.100:9000/uptage/" + req.file.filename
+    }
+    video.create(videoData, function (err, video) {
+        if (err) {
+            console.log(err)
+            req.flash("error", "Make sure you filled every field");
+            res.redirect("/upload");
+        } else {
+            minioClient.fPutObject("uptage", req.file.filename, req.file.path, "application/octet-stream", function (error, etag) {
+                if (error) {
+                    return console.log(error);
+                }
 
-    var videoFile = req.files.videoUpload;
-    if(videoFile.mimetype != "video/mp4"){
-        res.send("No files were uploaded. Wrong filetype / no file chosen")
-       
-    }else{
-    
-    
-    if(req.body.videoTitle &&
-       req.body.videoDescription &&
-        req.body.videoTags &&
-       req.body.videoCategory &&
-       req.body.videoDate &&
-       req.body.videoXCoord &&
-       req.body.videoYCoord){
+            })
+            req.flash("success", "Video uploaded with success");
+            res.redirect("/");
+            console.log(video);
+            console.log("Uploaded!");
 
-        
-        var title = req.body.videoTitle;
-
-        var uploadPath = "/videos/"+title+".mp4";              
-       
-        videoFile.mv("public/"+uploadPath,function(err){
-            if(err){console.log(err)
-                   res.send("No video Uploaded!")}})
-
-
-        var videoData = {
-            title: req.body.videoTitle,
-            description: req.body.videoDescription,
-            tags: req.body.videoTags,
-            category: req.body.videoCategory,
-            date: req.body.videoDate,
-            location: {
-                type: "Point",
-                coordinates:[req.body.videoYCoord,req.body.videoXCoord]
-            },
-            path:uploadPath  
         }
-        video.create(videoData, function(err, video){
-            if(err){console.log(err)
-                    res.send(JSON.stringify(err))
-                   }else{
+    })
 
-                       res.redirect("/upload/Success");        
-                       console.log(video);
-                       console.log("Uploaded!");
-                    
-                   }
-        })}
-}
-})
-router.get("/upload/Success",function(req, res){
-    res.render("uploadSuccess");
-})
+    }
+)
+
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()){
         
         return next();
-    }  
-res.redirect("/signup")
+    } 
+req.flash("error", "Please log in first") 
+res.redirect("/")
 }
 
 

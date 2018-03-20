@@ -4,9 +4,12 @@ var express = require("express"),
     app = express(),
     recursive = require("recursive-readdir"),
     mongoose = require("mongoose"),
-    fileUpload = require("express-fileupload"),
     User = require("./models/user"),
     video = require("./models/video"),
+    crypto = require("crypto"),
+    minio = require("minio"),
+    flash = require("connect-flash"),
+    multer = require("multer"),
     passport = require("passport"),
     passportLocalMongoose = require("passport-local-mongoose"),
     LocalStrategy = require("passport-local")
@@ -24,17 +27,24 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(fileUpload());
+app.use(flash());
+
 
 app.use(require("express-session")({
     secret:"Secret thingy here!",
     resave: false,
     saveUninitialized: false
 }));
+
+
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next){
     res.locals.currentUser = req.user;
+    res.locals.error= req.flash("error");
+    res.locals.success= req.flash("success");
     next();
 })
 

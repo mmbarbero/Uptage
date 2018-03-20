@@ -1,7 +1,15 @@
 
 <% include partials/navbar_main %>
 
+<% if(success && success.length > 0){ %>
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p>
+            <%= success %>
+        </p>
+    </div>
 
+    <% } %>
 <!-- teste -->
 
 <div id="indexContainer">
@@ -32,7 +40,7 @@
 
 
 <div id="content">
-    <div class="containe-fluid">
+    <div class="container-fluid">
 
         <div class="row">
             <div class="col-lg-4 col-sm-6">

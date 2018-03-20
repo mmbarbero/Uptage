@@ -296,12 +296,18 @@ a.btn_red {
 		text-decoration: none;
 		color: #ED6347;
 }
+.loginform{
+    margin-bottom: 30px;
+    padding-left: 100px;
+
+}
+
 #signup{
     margin-top:100px;
 }
 .vcenter {
     display: inline-block;
-    float:none;
+    
     vertical-align: middle;     
 }
 .vcenter span{
@@ -309,7 +315,11 @@ a.btn_red {
     text-align: center;
 }
 #signupTitle{
-    margin-bottom: 100px;
+    margin-bottom: 60px;
+}
+#loginTitle{
+    margin-bottom: 60px;
+    margin-left: 60px;
 }
 .signuptext{
     text-align: center;
@@ -369,4 +379,10 @@ a.btn_red {
 
 .vjs-default-skin .vjs-control-bar {
     font-size: 85%
+}
+
+.alert{
+
+    margin-top: 50px;
+    z-index: 1;
 }

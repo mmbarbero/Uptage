@@ -18,6 +18,13 @@ var videoSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    author: {
+        type: String
+    },
+    uploadDate: {
+        type: Date,
+        required: true
+    },
     date: {
         type: Date, 
         required:true

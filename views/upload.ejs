@@ -1,4 +1,15 @@
 <% include partials/navbar_others %>
+
+<% if(error && error.length > 0){ %>
+    <div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p>
+            <%= error %>
+        </p>
+    </div>
+    <% } %>
+
+
 <div class="jumbotron" id="uploadJumbo">
     <div id="uploadContainer" class="container">
         <div id="uploadContent">
