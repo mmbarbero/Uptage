@@ -18,7 +18,8 @@ var videosRoutes = require("./routes/videos"),
     mapRoutes = require("./routes/map"),
     videoPlayerRoutes = require("./routes/video_player"),
     uploadRoutes = require("./routes/upload"),
-    indexRoutes = require("./routes/index")
+    indexRoutes = require("./routes/index"),
+    dashboardRoutes = require("./routes/dashboard")
 
 
 mongoose.connect("mongodb://admin:password@ds157528.mlab.com:57528/uptage");
@@ -53,6 +54,7 @@ app.use(videosRoutes);
 app.use(videoPlayerRoutes);
 app.use(uploadRoutes);
 app.use(mapRoutes);
+app.use(dashboardRoutes);
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());

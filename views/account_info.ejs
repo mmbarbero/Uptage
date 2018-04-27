@@ -1,0 +1,37 @@
+<% include partials/navbar_others %>
+
+<div id="mySidenav" class="sidenav">
+    <a href="/dashboard/<%= currentUser.username%>/account_info" class="active-page">Account Info</a>
+    <a href="/dashboard/<%= currentUser.username%>/statistics">Statistics</a>
+    <a href="/dashboard/<%= currentUser.username%>/transactions">Transactions</a>
+    <a href="/dashboard/<%= currentUser.username%>/my_videos">My videos</a>
+</div>
+
+<section id="main-content">
+<div id="dashboardContainer">
+    <div class="container-fluid">
+    <h1>Account Info</h1>
+
+<br>
+<br>
+
+<label class="info">Username: 
+    <p><%=user[0].username%></p>
+</label>
+<br>
+<label class="info">Full name:
+    <p><%=user[0].firstName%> <%=user[0].lastName%></p>
+</label>
+<br>
+<label class="info">Email:
+    <p><%=user[0].email%></p>
+</label>
+<br>
+<label class="info">Type:
+    <p><%=user[0].type%></p>
+</label>
+
+</div>
+</div>
+</section>
+    <% include partials/footer %>

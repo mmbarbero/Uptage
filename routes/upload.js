@@ -13,25 +13,12 @@ var accKey = process.env.ACCKEY,
     secKey = process.env.SECKEY;
 
 var minioClient = new minio.Client({
-        endPoint: "192.168.5.100",
+        endPoint: "mbarhomelab.ddns.net",
         port: 9000,
         secure: false,
         accessKey: accKey,
-        secretKey: secKey
+        secretKey: seccKey
 });
-
-// function deleteFs() {
-//     fs.readdir(directory, (err, files) => {
-//         if (err) throw err;
-
-//         for (const file of files) {
-        
-//             fs.unlink(path.join(directory, file), err => {
-//                 if (err) throw err;
-//             });
-//         }
-//     });
-// }
 
 var storage = multer.diskStorage({
     destination: directory,
@@ -62,7 +49,7 @@ router.get("/upload", isLoggedIn, function(req, res){
 
 })
 
-router.post("/upload",isLoggedIn, upload.single("videoUpload"), function(req, res){
+router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(req, res){
     var date = new Date();
     var videoData = {
         title: req.body.videoTitle,
@@ -76,8 +63,8 @@ router.post("/upload",isLoggedIn, upload.single("videoUpload"), function(req, re
             type: "Point",
             coordinates: [req.body.videoYCoord, req.body.videoXCoord]
         },
-        path: "http://192.168.5.100:9000/uptage/" + req.file.filename
-    }
+        path: "http://mbarhomelab.ddns.net:9000/uptage/" + req.file.filename
+    } 
     video.create(videoData, function (err, video) {
         if (err) {
             console.log(err)

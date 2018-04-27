@@ -43,6 +43,9 @@ router.post("/login", passport.authenticate("local",
     
 })
 
+
+
+
 router.get("/signup",function(req, res){
 
     res.render("signup", {message:req.flash("error")});
@@ -52,7 +55,7 @@ router.post("/signup", function(req, res){
 
 if(req.body.password === req.body.confPassword ){
 
-   var newUser = new User({username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email});
+   var newUser = new User({username: req.body.username, firstName: req.body.firstName, lastName: req.body.lastName, email: req.body.email, type: req.body.usrType});
     
     User.register(newUser, req.body.password, function(err, user){
         if(err){
@@ -79,5 +82,6 @@ router.get("/logout", function(req, res){
     req.logout();
     res.redirect("/");
 })
+
 
 module.exports = router;

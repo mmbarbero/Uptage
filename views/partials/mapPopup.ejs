@@ -1,0 +1,71 @@
+<div id="modal2" class="popupContainer" style="width:1040px;height:630px; display:none;">
+
+    <section class="popupBody">
+        <div id="modal2" class="video_map">
+            <div id="map" class="mapContainer">
+
+                <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                    crossorigin=""></script>
+
+                <script defer="defer" type="text/javascript">
+
+
+                    var bounds = new L.LatLngBounds(new L.LatLng(-90, -180), new L.LatLng(90, 180));
+
+                    var map = L.map('map').setView([38.706741, -9.152644], 3);
+                    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+                        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+                        maxZoom: 18,
+                        minZoom: 2,
+                        maxBounds: bounds,
+                        id: 'mapbox.streets',
+                        accessToken: 'pk.eyJ1IjoibG9yZTQ3MyIsImEiOiJjamJkZnJwOHgxaDczMnBvZjF1NjdzaWp5In0.7LvZDR8hnbAFdrtEI6NuSw'
+                    }).addTo(map);
+
+                    map.setMaxBounds(bounds);
+
+                    var GeoSearchControl = window.GeoSearch.GeoSearchControl;
+                    var OpenStreetMapProvider = window.GeoSearch.OpenStreetMapProvider;
+                    var provider = new OpenStreetMapProvider({});
+                    var searchControl = new GeoSearchControl({
+                        provider: provider,
+                        style: 'bar',
+                        showMarker: false,
+                        marker: {
+                            draggable: true
+                        },
+                        autoClose: true,
+                        keepResult: true,
+                    });
+                    map.addControl(searchControl);
+
+                    map.on('geosearch/showlocation', function (e) {
+                        $("#lat").val(e.location.y);
+                        $("#lng").val(e.location.x);
+
+                    });
+
+
+                    map.on('geosearch/marker/dragend', function (e) {
+                        $("#lat").val(parseFloat(e.location.lat));
+                        $("#lng").val(parseFloat(e.location.lng));
+                    });
+
+                    function onMapClick(e) {
+                        var popup = L.popup()
+                            .setLatLng(e.latlng)
+                            .setContent("" + e.latlng)
+                            .bindPopup("" + e.latlng)
+                            .openOn(map);
+
+                        console.log(e.latlng);
+                        document.getElementById("lat").value = e.latlng.lat;
+                        document.getElementById("lng").value = e.latlng.lng;
+                    }
+                    map.on('click', onMapClick);
+                </script>
+            </div>
+        </div>
+
+    </section>
+</div>

@@ -1,8 +1,7 @@
 <% include partials/navbar_others %>
 
 <div id="content">
-    <div class="containe-fluid">
-
+    <div class="container-fluid">
         <div class="row">
             <div class="col-lg-4 col-sm-6">
                 <h1 class="title">All Uploads</h1>
@@ -11,20 +10,26 @@
         <div class="row">
             <%  for (var i = 0; i < videos.length; i++){ %>
 
-            <div class="col-lg-4 col-sm-6">
-                <div class="thumbnail">
-                    <label><a href="<%=videos[i]._id%>"> <video width="100%" height="190">
-                        <source src="<%=videos[i].path%>" type="video/mp4">
+                <div id="column" class="col-lg-3 col-xl-3 col-sm-6">
+                    <div id="tile">
+                        <label>
+                            <a id="vidLink" href="/videos/<%=videos[i]._id%>">
+                                <video width="100%" height="80%">
+                                    <source src="<%=videos[i].path%>" type="video/mp4">
+                                </video>
 
-                        </video></a><h4>
-                        <%=videos[i].title %>
-                        </h4>
-                    </label>
-
+                                <h4>
+                                    <%=videos[i].title %>
+                                </h4>
+                                <p> by
+                                    <%=videos[i].author %>
+                                </p>
+                                </a>
+                        </label>
+                    </div>
                 </div>
-            </div>
 
-            <%    } %>
+                <%    } %>
         </div>
 
     </div>

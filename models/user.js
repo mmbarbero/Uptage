@@ -23,8 +23,12 @@ var userSchema = new mongoose.Schema({
         trim: true
     },
     password: {
-        type: String,
+        type: String
       
+    },
+    type: {
+        type: String,
+        required:true
     }
 });
 
