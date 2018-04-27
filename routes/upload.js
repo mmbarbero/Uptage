@@ -17,7 +17,7 @@ var minioClient = new minio.Client({
         port: 9000,
         secure: false,
         accessKey: accKey,
-        secretKey: seccKey
+        secretKey: secKey
 });
 
 var storage = multer.diskStorage({
