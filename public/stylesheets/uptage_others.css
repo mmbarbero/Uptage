@@ -269,7 +269,6 @@ a.btn_red {
 		display: block;
 		margin-bottom: 5px;
 }
-
 .user_login input[type="text"],
 .user_login input[type="email"],
 .user_login input[type="password"] {
@@ -279,7 +278,6 @@ a.btn_red {
 		border: 1px solid #DDD;
 		color: #666;
 }
-
 .user_login input[type="checkbox"] {
 		float: left;
 		margin-right: 5px;
@@ -303,29 +301,7 @@ a.btn_red {
 		text-decoration: none;
 		color: #ED6347;
 }
-#signup{
-    margin-top:100px;
-}
-.vcenter {
-    display: inline-block;
-    float:none;
-    vertical-align: middle;     
-}
-.vcenter span{
-    font-size: 20px;
-    text-align: center;
-}
-#signupTitle{
-    margin-bottom: 100px;
-}
-.signuptext{
-    text-align: center;
-    margin-top: 70px;
-}
-.verticalLine{
-    padding-right: 100px;
-     border-right: thin solid black;;
-}
+
 #uploadJumbo{
   
     height: 100vh;

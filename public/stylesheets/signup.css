@@ -1,0 +1,92 @@
+#signup {
+    margin-top: 100px;
+}
+
+.radio {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.radio input {
+    position: absolute;
+    opacity: 0;
+}
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    background-color: #eee;
+    border-radius: 50%;
+}
+
+/* On mouse-over, add a grey background color */
+
+.radio:hover input~.checkmark {
+    background-color: #ccc;
+}
+
+/* When the radio button is checked, add a blue background */
+
+.radio input:checked~.checkmark {
+    background-color: #ED6347;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+
+.radio input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the indicator (dot/circle) */
+
+.radio .checkmark:after {
+    top: 9px;
+    left: 9px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+}
+
+.vcenter {
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+}
+
+.vcenter span {
+    font-size: 20px;
+    text-align: center;
+}
+
+#signupTitle {
+    margin-bottom: 100px;
+}
+
+.signuptext {
+    text-align: center;
+    margin-top: 70px;
+}
+
+.verticalLine {
+    padding-right: 100px;
+    border-right: thin solid black;
+    ;
+}
