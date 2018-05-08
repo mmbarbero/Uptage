@@ -13,7 +13,7 @@ body {
     margin-left: 20%;
     width: 1000px;
     height: 600px;
-    position: relative;
+    position: absolute;
     outline: none;
 }
 
@@ -44,7 +44,12 @@ body {
     margin-bottom: 0px;
 }
 
-.navbar-inverse {
+.icon{
+    font-size:13px;
+  margin-left: 5px;
+}
+
+.mainNav {
     background-color: rgba(0, 0, 0, 0);
     border-style: none;
 }
@@ -54,8 +59,9 @@ body {
     border-style: none;
 }
 
-.topSearch {
+.mainNavSearch {
     opacity: 0;
+    text-align: center;
 }
 
 .top {
@@ -72,8 +78,8 @@ body {
     background-color:rgba(0, 0, 0, 0.507);
     
     border: 1px solid white;
-    
-    padding: 4px 8px 4px 4px !important;
+    border-right: 2px;
+    padding: 7px 8px 4px 4px !important;
     width: 500px;
     height: 50px;
     font-size: 24px;
@@ -113,20 +119,6 @@ body {
     margin: 0 auto;
     height: 100%;
     background-color: white
-}
-
-.videoP {
-    height: 500px;
-    width: 1920px;
-    object-fit: fill;
-    position: relative;
-    z-index: 0;
-    margin-top: 60px;
-    margin-left: 10%;
-}
-
-#videoPlayerInfo {
-    margin-top: 60px;
 }
 
 #overlay {
@@ -212,10 +204,11 @@ body {
 }
 
 #searchbar {
-    margin-left: 12%;
-    float: none;
+    margin-left:110px;
     display: inline-block;
     text-align: center;
+    padding-right:0;
+    width:350px;
 }
 
 #createAccountBut {

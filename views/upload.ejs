@@ -1,4 +1,4 @@
-<% include partials/navbar_others %>
+<% include partials/navbar %>
 
 <% if(error && error.length > 0){ %>
     <div class="alert alert-danger alert-dismissible">
@@ -14,19 +14,13 @@
             <div class="row">
                 <h2>Upload your video!</h2>
             </div>     
-     
-
-
-
            <div class="row">
-            
-
                 <div class="col-md-8">
                     <form action="/file-upload" method="post" id="uploadForm" encType="multipart/form-data">
                         <input id="input-b1" name="videoUpload" type="file" accept=".mp4" class="file">
                         <div class="form-group">
                             <label for="videoTitle">Video Title:</label>
-                            <input type="text" class="form-control" name="videoTitle" placeholder="Enter video title..">
+                            <input type="text" class="form-control" name="videoTitle" placeholder="Enter video title.." required>
                         </div>
                         <div class="form-group">
                             <label for="videoDescription">Video description:</label>
@@ -34,13 +28,13 @@
                         </div>
                         <div class="form-group">
                             <label for="videoTagInput">Tags:</label>
-                            <input type="text" class="form-control" name="videoTags" placeholder="Enter tags that describe your video..">
+                            <input type="text" class="form-control" name="videoTags" placeholder="Enter tags that describe your video.." required>
                             <small class="form-text text-muted">Write tags separated by spaces</small>
                         </div>
                         <div style="margin-top:-5px" class="row">
                             <div class="form-group col-md-5">
                                 <label for="videoCatSelect">Choose category:</label>
-                                <select class="form-control" name="videoCategory">
+                                <select class="form-control" name="videoCategory" required>
                                     <option>Select one of these</option>
                                     <option value="Animals">Animals</option>
                                     <option value="Politics">Politics</option>
@@ -56,7 +50,7 @@
                             <div class="form-group col-md-5">
                                 <label for="videoDateInput">Choose when you shot the video:</label>
                                 <div class='input-group date' id='videoDateTimepicker'>
-                                    <input name="videoDate" type='text' class="form-control" />
+                                    <input name="videoDate" type='text' class="form-control" required>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
@@ -71,17 +65,17 @@
                         <br>
                              <div style="margin-top:-5px" class="row">
                             <div class="form-group col-md-5">   
-                            <input type="number" step="0.000000000000000001" class="form-control" id="lat" name="videoXCoord" placeholder="Latitude">
+                            <input type="number" step="0.000000000000000001" class="form-control" id="lat" name="videoXCoord" placeholder="Latitude" required>
                             </div>
                             <div class="col-md-2"></div>
                             <div class="form-group col-md-5">
-                               <input type="number" step="0.000000000000000001" class="form-control" id="lng" name="videoYCoord" placeholder="Longitude">
+                               <input type="number" step="0.000000000000000001" class="form-control" id="lng" name="videoYCoord" placeholder="Longitude" required>
                             </div>
                         </div>
                         <div class="row">
                          <div class="col-md-5"></div>
                             <div class="col-md-2"><button type="submit" class="btn btn-block btn-danger">Upload</button></div>
-                          <div class="col-md-5"></div>
+                          <div class="col-md-5"></div>                          
                             </div>
                     </form>
                 </div>

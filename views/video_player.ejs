@@ -1,53 +1,55 @@
-<% include partials/navbar_others %>
+<% include partials/navbar %>
 
-  <div class="">
+    <div class="container-fluid" id="videoPlayer">
         <div class="row">
-
-            <div class="col-lg-6 col-md-12">
-                <div class="no-gutters videop">
-
-                    <video id="VIDEO" class="videoP video-js vjs-default-skin" controls preload="auto" width="700" height="550" data-setup="{}">
-            <source src="<%=video[0].path%>" type='video/mp4'>
-            <p class="vjs-no-js"> <a href="http://videojs.com/html5-video-support/" target="_blank"></a></p>
-            </video>
-
-
-                </div>
+            <div class="col-lg-6 col-md-6">
+                <video id="player" playsinline controls>
+                    <source src="<%=video[0].path%>" type="video/mp4">
+                </video>
             </div>
 
+            <div id="videoPlayerInfo" class="col-lg-6 col-md-6 tags">
+                <form method="POST" action="/videos/<%=video[0]._id%>/update/">
+                    <input value="<%=video[0].title%>" type="text" id="titleInfo" name="title" class="videoInfo">
+                    <br>
+                    <input value="<%=video[0].description%>" type="text" name="description" class="videoInfo">
+                    <br>
+                    <input value="<%=video[0].tags%>" type="text" name="tags" class="videoInfo">
+                    <h3>Author:
+                        <%=video[0].author%>
+                    </h3>
+                    <h3>Category:
+                        <%=video[0].category%>
+                    </h3>
+                    <h3>Date:
+                        <%=video[0].date%>
+                    </h3>
+                    <h3>See
+                        <a id="modal_trigger2" href="#modal2">Location</a> in map
+                    </h3>
+ <% if(currentUser.username == video[0].author){ %>
+                    <div class="one_half ">
+                        <button id="saveEditButton" class="btn btn_green" type="submit">Save</button>
+                    </div>
+                </form>
+                     <div class="one_half "><button id="editButton" class="btn btn_red">Edit</button></div> 
+                      <div class="one_half ">
+                                <button id="cancelEditButton" class="btn btn_redder">Cancel</button>
+                            </div>
+                        <%}%>
 
-            <div id="videoPlayerInfo" class="col-lg-4 col-md-12 tags">
-                <h1>Video Title:
-                    <%=video[0].title%>
-                </h1>
-                <h3>Descripton:
-                    <%=video[0].description%>
-                </h3>
-                <h3>Tags:
-                    <%=video[0].tags%>
-                </h3>
-                <h3>Category:
-                    <%=video[0].category%>
-                </h3>
-                <h3>Date:
-                    <%=video[0].date%>
-                </h3>
-                <h3>See <a id="modal_trigger2" href="#modal2">Location</a> in map:
-                </h3>
+                           
+
             </div>
         </div>
     </div>
-
     <div id="modal2" class="popupContainer" style="width:1040px;height:630px; display:none;">
 
         <section class="popupBody">
             <div id="modal2" class="video_map">
                 <div id="map" class="mapContainer">
-
-
-
-
-                    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin=""></script>
+                    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log=="
+                        crossorigin=""></script>
 
                     <script defer="defer" type="text/javascript">
                         var map = L.map('map').setView([38.706741, -9.152644], 16);
@@ -56,12 +58,11 @@
                             maxZoom: 18,
                             id: 'mapbox.streets',
                             accessToken: 'pk.eyJ1IjoibG9yZTQ3MyIsImEiOiJjamJkZnJwOHgxaDczMnBvZjF1NjdzaWp5In0.7LvZDR8hnbAFdrtEI6NuSw'
-                            
+
                         }).addTo(map);
 
                         var newMarker = new L.marker([<%=video[0].location.coordinates%>]).addTo(map);
                         map.setView([<%=video[0].location.coordinates%>], 10);
-
                     </script>
                 </div>
             </div>
@@ -69,8 +70,11 @@
         </section>
     </div>
 
+    <script src="https://cdn.plyr.io/3.3.5/plyr.js"></script>
+    <script>
+        const player = new Plyr('#player');
+    </script>
 
 
 
-
- <% include partials/footer %>
+    <% include partials/footer %>

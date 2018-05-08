@@ -16,8 +16,8 @@ var minioClient = new minio.Client({
         endPoint: "mbarhomelab.ddns.net",
         port: 9000,
         secure: false,
-        accessKey: accKey,
-        secretKey: secKey
+    accessKey: accKey,
+    secretKey: secKey
 });
 
 var storage = multer.diskStorage({
@@ -42,12 +42,13 @@ var upload = multer({ storage: storage, fileFilter: function(req, file, callback
 }
 })
 
-
-router.get("/upload", isLoggedIn, function(req, res){
+router.get("/upload", isLoggedIn,requireRole("seller"), function(req, res){
 
     res.render("upload");
 
 })
+
+
 
 router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(req, res){
     var date = new Date();
@@ -87,6 +88,15 @@ router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(re
 
     }
 )
+function requireRole(role) {
+    return function (req, res, next) {
+        if (req.user && req.user.type === role) {
+            next();
+        } else {
+            res.render("index");
+        }
+    }
+}
 
 
 function isLoggedIn(req, res, next){

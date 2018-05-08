@@ -1,8 +1,23 @@
+
+
 (function ($) {
     $(document).ready(function () {
 
-        // hide .navbar first
-        $(".navbarhide").hide();
+        $(".videoInfo").attr("readonly", "readonly");
+
+        $("#saveEditButton").hide();
+        $("#cancelEditButton").hide();
+
+       
+
+        $(function(){
+            url = location.pathname;
+            console.log(url)
+            if(url == "/"){
+                $("#navbar-main").addClass("mainNav")
+                $(".topSearch").addClass("mainNavSearch")
+            }
+        })
 
         $('.jarallax').jarallax({
             speed: 0.2
@@ -11,13 +26,11 @@
         // fade in .navbar
         $(function () {
             $(window).scroll(function () {
-
                 // set distance user needs to scroll before we start fadeIn
                 if ($(this).scrollTop() > 500) {
-                    $('.navbarhide').fadeIn();
                     $(".navbar-inverse").addClass("navbarcolour");
                 } else {
-                    $('.navbarhide').fadeOut();
+
                     $(".navbar-inverse").removeClass("navbarcolour");
                 }
             });
@@ -25,6 +38,25 @@
 
     });
 }(jQuery));
+
+$("#editButton").click(function(){
+    $(".videoInfo").addClass("videoInfoEditable");
+    $(".videoInfo").removeAttr("readonly", "readonly");
+    $("#editButton").hide();
+    $("#saveEditButton").show();
+    $("#cancelEditButton").show();
+
+});
+
+$("#cancelEditButton").click(function(){
+    $(".videoInfo").removeClass("videoInfoEditable");
+    $(".videoInfo").attr("readonly", "readonly");
+    $("#editButton").show();
+    $("#saveEditButton").hide();
+    $("#cancelEditButton").hide();
+});
+
+
 $(function () {
     $('#videoDateTimepicker').datetimepicker();
 });
@@ -50,5 +82,5 @@ $(window).scroll(function () {
 });
 
 $(window).scroll(function () {
-    $(".topSearch").css("opacity", 0 + $(window).scrollTop() / 550);
+    $(".mainNavSearch").css("opacity", 0 + $(window).scrollTop() / 550);
 });

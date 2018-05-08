@@ -14,11 +14,20 @@ router.get("/videos", function (req, res) {
 
 })
 
+router.get("/videos/api", function (req, res){
+
+    console.log("goteem")
+ video.find({}, function (err, data){
+
+        res.json(data)
+ })
+})
+
 router.get("/search", function (req, res) {
 
     if (req.query.searchTerm) {
         const regex = new RegExp(escapeRegex(req.query.searchTerm), "gi");
-        console.log(regex);
+        
         video.find({
             '$or': [{
                     'title': {
@@ -41,7 +50,7 @@ router.get("/search", function (req, res) {
             ]
         }, function (err, data) {
 
-            console.log(data)
+           
             res.render("videos", {
                 videos: data
             })

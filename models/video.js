@@ -36,6 +36,9 @@ var videoSchema = new mongoose.Schema({
     path:{
         type: String,
         required: true     
+    },
+    price:{
+        type:Number
     }    
 
 });
