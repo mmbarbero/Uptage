@@ -1,0 +1,63 @@
+
+#videoPlayer{
+        padding-top: 60px;
+        padding-left: 300px;     
+}
+
+#videoPlayer  h3 {   
+   font-size: 1.1vw !important;
+}
+
+.videoInfo {
+     font-size: 1.1vw;
+        margin-top: 10px;
+        font-weight: 500;
+        width:100%;
+        border: none;
+        
+}
+#titleInfo{
+
+    font-size: 2.2vw !important;
+}
+
+
+#videoPlayerInfo {
+    
+    padding-left:100px;
+    max-width: 500px;
+    letter-spacing: 0;
+}
+
+.plyr--full-ui input[type=range] {
+    color: #ED6347 !important;
+}
+
+.plyr__control--overlaid {
+    background: #ED6347 !important;
+
+}
+
+.videoInfoEditable{
+    border: 2px solid gray;
+    padding: 2px;
+    border-radius: 3px;
+}
+
+.btn_redder {
+    margin: 10px 0 20px 0;
+    padding: 10px 42px;
+    background: #C73E1D;
+    color: #FFF;
+}
+
+.btn_green {
+    margin: 10px 0 20px 0;
+    padding: 10px 50px;
+    background: #659B5E;
+    color: #FFF;
+}
+
+#editVideo{
+    margin-top: 30px;
+}
