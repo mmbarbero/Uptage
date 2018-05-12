@@ -59,6 +59,9 @@
 
                 <section class="popupBody">
                     <div id="buy_modal" class="buyModal">
+
+<% if (currentUser && currentUser.type == "buyer"){ %>
+
                             <h4>Make sure this email is connected to your paypal: <%=currentUser.email %> </h4>
                             <br>
                             <h4>LICENSE START DATE: <label><% var date = new Date();%>  <%= date.toISOString().substring(0, 10) %></label></h4>
@@ -71,8 +74,11 @@
                         <button class="btn btn_green showButton">Confirm</button>
                          <button class="btn btn_redder showButton">Decline</button>
                         </div>
+<% }else{ %>
 
+<h4>Please <a href="/signup">click here</a> to create an account or log in as a buyer.</h4>
 
+<%}%>
                     </div>
 
                 </section>
