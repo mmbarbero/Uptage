@@ -5,28 +5,52 @@
 }
 
 #videoPlayer  h3 {   
-   font-size: 1.1vw !important;
+   font-size: 20px !important;
 }
 
 .videoInfo {
-     font-size: 1.1vw;
+     font-size: 20px;
         margin-top: 10px;
         font-weight: 500;
         width:100%;
-        border: none;
-        
+        border: none;       
+}
+
+#tagsInfo{
+    width:70%
+}
+
+#modal_trigger_buy {
+    width: 100%;
+    font-size: 20px;
+}
+
+#tagsInfoLabel {
+    font-size:20px;
+    font-weight: 400;
+    margin-bottom:0;
 }
 #titleInfo{
-
-    font-size: 2.2vw !important;
+  font-size: 34px !important;
+  margin-top: -15px
 }
 
+#priceInfoLabel {
+    font-size: 34px !important;
+    margin-bottom: -10px;
+}
+
+#priceInfo {
+    font-size: 34px !important;
+    width: 18%;
+}
 
 #videoPlayerInfo {
-    
+    margin-top: -18px;
     padding-left:100px;
     max-width: 500px;
     letter-spacing: 0;
+    
 }
 
 .plyr--full-ui input[type=range] {
@@ -49,6 +73,7 @@
     padding: 10px 42px;
     background: #C73E1D;
     color: #FFF;
+    display:none;
 }
 
 .btn_green {
@@ -56,8 +81,40 @@
     padding: 10px 50px;
     background: #659B5E;
     color: #FFF;
+    display: none;
 }
 
 #editVideo{
     margin-top: 30px;
+}
+
+#videoPlayerInfo hr {
+
+    border-top: 2px solid rgb(173, 172, 172);
+
+}
+
+.buyPopupContainer {
+    position: absolute;
+    width: 600px;
+    height: auto;
+    left: 45%;
+    top: 60px;
+    background: #FFF;
+}
+
+#buy_modal hr {
+    border-top: 2px solid rgb(173, 172, 172);
+}
+
+.showButton{
+
+    display: initial !important;
+
+}
+
+#buy_modal label {
+   float: right;
+
+    
 }

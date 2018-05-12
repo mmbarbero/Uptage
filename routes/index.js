@@ -2,7 +2,6 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-
 var video = require("../models/video");
 
 
@@ -47,14 +46,15 @@ router.post("/login/api", function (req, res, next) {
     passport.authenticate('local', function (err, user) {
 
         if (err) {
-            console.log(err)
-            return next(err);
+            console.log("error 1")
+            return res.json(err);
         }
         req.logIn(user, function (err) {
             if (err) {
-                return next(err);
+                console.log("error 2")
+                return res.status(403).send({ error: "Username or password are not correct" });
             }
-            console.log(user)
+            
             return res.json(user);
             
         });

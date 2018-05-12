@@ -25,18 +25,13 @@ var videoUrl = req.params.id;
 
     video.findOne({_id: videoUrl}, function (err,data) {
     
-        console.log(data.author)
-
         if(data.author === req.user.username){
-
-            console.log(req.body.title + " "+
-                req.body.description+" "+
-                req.body.tags)
 
             video.updateOne({ _id: videoUrl }, {
                 $set: {
                     title: req.body.title,
-                    description: req.body.description, tags: req.body.tags
+                    description: req.body.description, tags: req.body.tags,
+                    price: req.body.price
                 }
             }, function (err) {
                 if(err){

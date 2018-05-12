@@ -14,15 +14,6 @@ router.get("/videos", function (req, res) {
 
 })
 
-router.get("/videos/api", function (req, res){
-
-    console.log("goteem")
- video.find({}, function (err, data){
-
-        res.json(data)
- })
-})
-
 router.get("/search", function (req, res) {
 
     if (req.query.searchTerm) {

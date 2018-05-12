@@ -69,6 +69,19 @@ $("#modal_trigger").leanModal({
 $("#modal_trigger").click(function () {
     $(".user_login").show();
 });
+
+
+$("#modal_trigger_buy").leanModal({
+    top: 100,
+    overlay: 0.6,
+    closeButton: ".modal_close"
+});
+
+
+$("#modal_trigger_buy").click(function () {
+    $(".buyModal").show();
+});
+
 $("#modal_trigger2").leanModal({
     top: 100,
     overlay: 0.6,
@@ -76,6 +89,7 @@ $("#modal_trigger2").leanModal({
 });
 $("#modal_trigger2").click(function () {
     $(".video_map").show();
+    map.invalidateSize();
 });
 $(window).scroll(function () {
     $(".top").css("opacity", 1 - $(window).scrollTop() / 500);
@@ -83,4 +97,8 @@ $(window).scroll(function () {
 
 $(window).scroll(function () {
     $(".mainNavSearch").css("opacity", 0 + $(window).scrollTop() / 550);
+});
+
+$(function () {
+    $('#datetimepicker1').datetimepicker();
 });

@@ -405,28 +405,15 @@ a.btn_red {
     margin-bottom: 25px;
 }
 
-#videoDateTimepicker {}
+#dateDiv {
 
-.vjs-default-skin {
-    color: #1f1f1f;
+    max-height: 34px !important;
+
 }
 
-.vjs-default-skin .vjs-play-progress,
-.vjs-default-skin .vjs-volume-level {
-    background-color: #ffffff
-}
+#dateButton{
 
-.vjs-default-skin .vjs-control-bar,
-.vjs-default-skin .vjs-big-play-button {
-    background: rgba(100, 100, 100, 0.7)
-}
-
-.vjs-default-skin .vjs-slider {
-    background: rgba(100, 100, 100, 0.2333333333333333)
-}
-
-.vjs-default-skin .vjs-control-bar {
-    font-size: 85%
+        max-height: 34px !important;
 }
 
 .alert {

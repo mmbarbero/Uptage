@@ -90,7 +90,7 @@ router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(re
 )
 function requireRole(role) {
     return function (req, res, next) {
-        if (req.user && req.user.type === role) {
+        if (req.user && req.user.type === role || req.user.type === "admin") {
             next();
         } else {
             res.render("index");

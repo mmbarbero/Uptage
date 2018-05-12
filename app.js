@@ -19,7 +19,9 @@ var videosRoutes = require("./routes/videos"),
     videoPlayerRoutes = require("./routes/video_player"),
     uploadRoutes = require("./routes/upload"),
     indexRoutes = require("./routes/index"),
-    dashboardRoutes = require("./routes/dashboard")
+    dashboardRoutes = require("./routes/dashboard"),
+    apiRoutes = require("./routes/api")
+    
 
 
 mongoose.connect("mongodb://admin:password@ds157528.mlab.com:57528/uptage");
@@ -37,9 +39,6 @@ app.use(require("express-session")({
     saveUninitialized: false
 }));
 
-
-
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(function(req, res, next){
@@ -55,6 +54,7 @@ app.use(videoPlayerRoutes);
 app.use(uploadRoutes);
 app.use(mapRoutes);
 app.use(dashboardRoutes);
+app.use(apiRoutes);
 
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());

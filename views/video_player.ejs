@@ -10,11 +10,13 @@
 
             <div id="videoPlayerInfo" class="col-lg-6 col-md-6 tags">
                 <form method="POST" action="/videos/<%=video[0]._id%>/update/">
+                    <label id="priceInfoLabel"><input value="<%=video[0].price%>" type="number" id="priceInfo" name="price" class="videoInfo">€</label>
+                   <hr>
                     <input value="<%=video[0].title%>" type="text" id="titleInfo" name="title" class="videoInfo">
                     <br>
                     <input value="<%=video[0].description%>" type="text" name="description" class="videoInfo">
                     <br>
-                    <input value="<%=video[0].tags%>" type="text" name="tags" class="videoInfo">
+                    <label id="tagsInfoLabel">Tags: <input value="<%=video[0].tags%>" type="text" name="tags" id="tagsInfo" class="videoInfo"></label>
                     <h3>Author:
                         <%=video[0].author%>
                     </h3>
@@ -22,27 +24,63 @@
                         <%=video[0].category%>
                     </h3>
                     <h3>Date:
-                        <%=video[0].date%>
+                        <%var fulldate = video[0].date %>
+                        <%=fulldate.toISOString().substring(0, 10) %>
+                        <%=fulldate.toISOString().substring(11, 16) %>
                     </h3>
                     <h3>See
                         <a id="modal_trigger2" href="#modal2">Location</a> in map
                     </h3>
- <% if(currentUser.username == video[0].author){ %>
+ <% if(currentUser && currentUser.username == video[0].author){ %>
                     <div class="one_half ">
                         <button id="saveEditButton" class="btn btn_green" type="submit">Save</button>
                     </div>
                 </form>
-                     <div class="one_half "><button id="editButton" class="btn btn_red">Edit</button></div> 
+                     <div class="one_half ">
+                        <button id="editButton" class="btn btn_red">Edit</button>
+                     </div> 
                       <div class="one_half ">
-                                <button id="cancelEditButton" class="btn btn_redder">Cancel</button>
-                            </div>
+                        <button id="cancelEditButton" class="btn btn_redder">Cancel</button>
+                     </div>
                         <%}%>
 
-                           
-
+                        <button id="modal_trigger_buy" href="#buy_modal" class="btn btn_red">Buy</button>
             </div>
         </div>
     </div>
+
+
+<div id="buy_modal" class="buyPopupContainer" style="display:none;">
+                <header class="popupHeader">
+
+                    <span class="header_title">Checkout</span>
+                    <span class="modal_close"><i class="fa fa-times"></i></span>
+                </header>
+
+                <section class="popupBody">
+                    <div id="buy_modal" class="buyModal">
+                            <h4>Make sure this email is connected to your paypal: <%=currentUser.email %> </h4>
+                            <br>
+                            <h4>LICENSE START DATE: <label><% var date = new Date();%>  <%= date.toISOString().substring(0, 10) %></label></h4>
+                            <h4>BASE PRICE: <label><% var basePrice = video[0].price - (video[0].price*0.3)%> <%= basePrice%> €</label></h4>
+                            <h4>SERVICE COST (30%): <label><%=(video[0].price*0.3)%> €</label></h4>
+                            <hr>
+                            <h4>TOTAL PRICE: <label><%= video[0].price%> €</label></h4>
+                            <br>
+                        <div class="one-half">
+                        <button class="btn btn_green showButton">Confirm</button>
+                         <button class="btn btn_redder showButton">Decline</button>
+                        </div>
+
+
+                    </div>
+
+                </section>
+            </div>
+
+
+
+
     <div id="modal2" class="popupContainer" style="width:1040px;height:630px; display:none;">
 
         <section class="popupBody">
