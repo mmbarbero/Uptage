@@ -2,15 +2,18 @@ var mongoose = require("mongoose");
 
 var transactionSchema = new mongoose.Schema({
     buyerID:{
-        type:Number
+        type:String
     },
     sellerID:{
-        type:Number
+        type:String
     },
     videoID:{
-        type:Number
+        type:String
     },
-    totalPrice:{
+    videoPrice:{
+        type: Number
+    },
+    priceAfterFee:{
         type: Number
     },
     date:{

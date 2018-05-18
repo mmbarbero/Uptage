@@ -15,7 +15,6 @@ router.get("/", function (req, res) {
 
 });
 
-
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
 
@@ -33,33 +32,13 @@ router.get('/flash', function (req, res) {
 
 
 router.post("/login", passport.authenticate("local", {
-    successRedirect: "/",
+    successRedirect: "back",
     failureFlash: "Invalid username or password",
     failureRedirect: "/signup"
 
 }), function (req, res) {
 
 })
-
-router.post("/login/api", function (req, res, next) {
-
-    passport.authenticate('local', function (err, user) {
-
-        if (err) {
-            console.log("error 1")
-            return res.json(err);
-        }
-        req.logIn(user, function (err) {
-            if (err) {
-                console.log("error 2")
-                return res.status(403).send({ error: "Username or password are not correct" });
-            }
-            
-            return res.json(user);
-            
-        });
-    })(req, res, next);
-});
 
 
 router.get("/signup", function (req, res) {

@@ -419,4 +419,5 @@ a.btn_red {
 .alert {
     margin-top: 50px;
     z-index: 1;
+    margin-bottom: 0;
 }

@@ -1,8 +1,89 @@
-var express = require("express");
-var router = express.Router();
-var video = require("../models/video");
-var user = require("../models/user");
-var passport = require("passport");
+var express = require("express"),
+    router = express.Router(),
+    multer = require("multer"),
+    crypto = require("crypto"),
+    minio = require("minio"),
+    video = require("../models/video"),
+    path = require("path"),
+    fs = require("fs") ,
+    user = require("../models/user"),
+    passport = require("passport");
+
+    var directory = "/app/public/videos/"
+
+    var minioClient = new minio.Client({
+        endPoint: "mbarhomelab.ddns.net",
+        port: 9000,
+        secure: false,
+    accessKey: "minio",
+    secretKey: "password123"
+});
+
+var storage = multer.diskStorage({
+    destination: directory,
+    filename: function (req, file, cb) {
+        crypto.pseudoRandomBytes(16, function (err, raw) {
+            if (err) return cb(err)
+
+            cb(null, raw.toString('hex') + path.extname(file.originalname))
+        })
+    }
+})
+
+var upload = multer({ storage: storage, fileFilter: function(req, file, callback){
+
+    var ext = path.extname(file.originalname);
+        if(ext !== ".mp4" && ext !== ".avi" && ext !== ".mpeg"){
+            return callback(new Error("Only videos are allowed!"))
+            
+    }
+        callback(null, true)
+}
+})
+
+
+
+
+router.post("/api/file-upload",upload.single("videoUpload"), function(req, res){
+    var date = new Date();
+     var videoData = {
+         title: req.body.videoTitle,
+        description: req.body.videoDescription,
+        tags: req.body.videoTags,
+        category: req.body.videoCategory,
+        author: req.body.username,
+         uploadDate: date.toISOString(),
+         date: req.body.videoDate,
+        location: {
+            type: "Point",
+             coordinates: [req.body.videoYCoord, req.body.videoXCoord]
+         },
+         path: "http://mbarhomelab.ddns.net:9000/uptage/" + req.file.filename
+     } 
+     video.create(videoData, function (err, video) {
+            if (err) {
+            console.log(err)
+             
+         } else {
+            minioClient.fPutObject("uptage", req.file.filename, req.file.path, "application/octet-stream", function (error, etag) {
+                if (error) {
+                    return console.log(error);
+                }console.log("Upload successful")
+
+            })
+
+             console.log(video);
+             console.log("Uploaded!");
+
+        }
+     })
+
+ }
+)
+
+
+
+
 
 
 router.get("api/videos/all/", function (req, res) {

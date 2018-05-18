@@ -1,22 +1,52 @@
 var express = require("express");
 var router = express.Router();
 var video = require("../models/video");
-var transactions = require("../models/transactions");
+var transaction = require("../models/transactions");
+
+
 router.get("/videos/:id", function(req, res){
     
     var videoUrl = req.params.id;
   
      video.find({_id:videoUrl}, function(err, data){
-             
-             res.render("video_player",{video:data})
-       
-})  
+
+        transaction.find({videoID:videoUrl}, function (err,trans) {
+          
+             res.render("video_player", { video: data, transaction:trans })
+
+            })   
+        })  
 })
 
-router.post("/buy", function (err, data) {
+router.get("/videos/:id/buy",isLoggedIn, requireRole("buyer"), function (req, res) {
 
+    var videoUrl = req.params.id;
 
+        video.find({ _id: videoUrl }, function (err, data) {
+           
+            var date = new Date();
 
+        var transactionData = {
+        buyerID: req.user.username,
+        sellerID: data[0].author,
+        videoID: data[0]._id,
+        videoPrice: data[0].price,
+        priceAfterFee: data[0].price - (data[0].price*0.3),
+        date: date.toISOString()
+        }
+
+transaction.create(transactionData, function(err,transaction){
+
+    if(err){
+        console.log(err)
+    }
+    else{
+        console.log("Transaction complete!")
+        req.flash("success", "Video bought with success. You can download your bought videos on the dashboard page.");
+        res.redirect("back");
+    }
+})
+    })
 })
 
 router.post("/videos/:id/update", isLoggedIn, function (req,res) {
@@ -57,5 +87,15 @@ function isLoggedIn(req, res, next) {
     req.flash("success", "Please login first")
     res.redirect("/")
 }
+function requireRole(role) {
+    return function (req, res, next) {
+        if (req.user && req.user.type === role || req.user.type === "admin") {
+            next();
+        } else {
+            res.render("index");
+        }
+    }
+}
+
 
 module.exports = router;

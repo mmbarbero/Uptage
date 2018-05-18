@@ -1,5 +1,13 @@
 <% include partials/navbar %>
 
+<% if(success && success.length > 0){ %>
+    <div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <p>
+            <%= success %>
+        </p>
+    </div>
+    <% } %>
     <div class="container-fluid" id="videoPlayer">
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -10,7 +18,12 @@
 
             <div id="videoPlayerInfo" class="col-lg-6 col-md-6 tags">
                 <form method="POST" action="/videos/<%=video[0]._id%>/update/">
+
+                <% if(video[0].price == null){ %>
+                 <label id="priceInfoLabel"><input value="<%=video[0].price%>" type="number" id="priceInfo" name="price" class="videoInfo">Not priced yet</label>
+                    <%} else{ %>
                     <label id="priceInfoLabel"><input value="<%=video[0].price%>" type="number" id="priceInfo" name="price" class="videoInfo">€</label>
+                   <%} %>
                    <hr>
                     <input value="<%=video[0].title%>" type="text" id="titleInfo" name="title" class="videoInfo">
                     <br>
@@ -43,13 +56,18 @@
                         <button id="cancelEditButton" class="btn btn_redder">Cancel</button>
                      </div>
                         <%}%>
+                        <% if(currentUser && currentUser.type == "seller" || video[0].price == null){ %>
+                                              <%}else{%>
+  <button id="modal_trigger_buy" href="#buy_modal" class="btn btn_red">Buy</button>
+                        <%}elseif(){%>
 
-                        <button id="modal_trigger_buy" href="#buy_modal" class="btn btn_red">Buy</button>
+
+
+                        <% } %>
+            
             </div>
         </div>
     </div>
-
-
 <div id="buy_modal" class="buyPopupContainer" style="display:none;">
                 <header class="popupHeader">
 
@@ -71,8 +89,7 @@
                             <h4>TOTAL PRICE: <label><%= video[0].price%> €</label></h4>
                             <br>
                         <div class="one-half">
-                        <button class="btn btn_green showButton">Confirm</button>
-                         <button class="btn btn_redder showButton">Decline</button>
+                        <input type="button" class="btn btn_green showButton" onClick="location.href='/videos/<%=video[0]._id%>/buy/';" value="Confirm">
                         </div>
 <% }else{ %>
 
@@ -83,9 +100,6 @@
 
                 </section>
             </div>
-
-
-
 
     <div id="modal2" class="popupContainer" style="width:1040px;height:630px; display:none;">
 
