@@ -25,26 +25,20 @@ router.get("/dashboard/:username/my_videos", isLoggedIn, function (req, res){
     var videos = []
     var ObjectId = require("mongoose").Types.ObjectId;
 
-   
-
-console.log(username)
-
     if(type == "buyer"){
         
         Transaction.find({"buyerID": "buyer"}, "videoID", function(err, docs){  
 
             var ids = docs.map(function(doc){return doc.videoID})
-            console.log(ids)
+    
 
             Video.find({ _id: {$in: ids}}, function(err, videos){
-                console.log(videos)
+             
 
                 res.render("user_videos", { videos: videos })
 
             })
-
         })
-
 
     }else{
         console.log("not buyer")

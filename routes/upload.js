@@ -62,7 +62,7 @@ router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(re
         date: req.body.videoDate,
         location: {
             type: "Point",
-            coordinates: [req.body.videoYCoord, req.body.videoXCoord]
+            coordinates: [req.body.videoXCoord, req.body.videoYCoord]
         },
         path: "http://mbarhomelab.ddns.net:9000/uptage/" + req.file.filename
     } 

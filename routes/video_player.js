@@ -10,9 +10,11 @@ router.get("/videos/:id", function(req, res){
   
      video.find({_id:videoUrl}, function(err, data){
 
-        transaction.find({videoID:videoUrl}, function (err,trans) {
+        transaction.find({videoID:videoUrl},"buyerID" ,function (err,docs) {
           
-             res.render("video_player", { video: data, transaction:trans })
+            var buyerIds = docs.map(function (doc) { return doc.buyerID })
+                console.log(buyerIds)
+             res.render("video_player", { video: data, transaction:buyerIds })
 
             })   
         })  
@@ -42,7 +44,7 @@ transaction.create(transactionData, function(err,transaction){
     }
     else{
         console.log("Transaction complete!")
-        req.flash("success", "Video bought with success. You can download your bought videos on the dashboard page.");
+        req.flash("success", "Video bought with success. Click on downloads to see your bought videos");
         res.redirect("back");
     }
 })

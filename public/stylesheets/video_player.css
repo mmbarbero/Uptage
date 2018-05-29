@@ -84,6 +84,15 @@
     display: none;
 }
 
+.btn_yellow {
+    margin: 10px 0 20px 0;
+    padding: 10px 50px;
+    background: #F09D51;
+    color: #FFF;
+    font-size: 20px;
+    width : 100%;
+}
+
 #editVideo{
     margin-top: 30px;
 }
