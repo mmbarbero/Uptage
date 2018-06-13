@@ -48,8 +48,6 @@ router.get("/upload", isLoggedIn,requireRole("seller"), function(req, res){
 
 })
 
-
-
 router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(req, res){
     var date = new Date();
     var videoData = {
