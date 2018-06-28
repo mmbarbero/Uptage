@@ -4,7 +4,7 @@
         <div id="mySidenav" class="sidenav">
             <a href="/dashboard/<%= currentUser.username%>/account_info">Account Info</a>
             <a href="/dashboard/<%= currentUser.username%>/statistics">Statistics</a>
-            <a href="/dashboard/<%= currentUser.username%>/transactions">Transactions</a>
+            <a href="/dashboard/<%= currentUser.username%>/<%= currentUser.type%>/transactions">Transactions</a>
             <a href="/dashboard/<%= currentUser.username%>/my_videos" class="active-page">My videos</a>
         </div>
 
@@ -24,7 +24,7 @@
                                 <div id="tile">
                                     <label>
                                         <a id="vidLink" href="/videos/<%=videos[i]._id%>">
-                                            <video width="100%" height="80%">
+                                            <video >
                                                 <source src="<%=videos[i].path%>" type="video/mp4">
 
                                             </video>

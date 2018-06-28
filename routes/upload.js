@@ -16,8 +16,8 @@ var minioClient = new minio.Client({
         endPoint: "mbarhomelab.ddns.net",
         port: 9000,
         secure: false,
-    accessKey: accKey,
-    secretKey: secKey
+    accessKey: "minio",
+    secretKey: "password123"
 });
 
 var storage = multer.diskStorage({
@@ -86,6 +86,21 @@ router.post("/file-upload",isLoggedIn, upload.single("videoUpload"), function(re
 
     }
 )
+
+router.get("/videos/:id/download",isLoggedIn, function(req, res){
+
+    var videoUrl = req.params.id;
+
+    var size = 0
+    minioClient.fGetObject('uptage', "ea717ee272cf47de1185f46c0cc08c10.mp4","./Downloads/teste.mp4", function(err, dataStream) {
+        if (err) {
+            return console.log(err)
+          }
+          console.log('success')
+    })
+
+})
+
 function requireRole(role) {
     return function (req, res, next) {
         if (req.user && req.user.type === role || req.user.type === "admin") {

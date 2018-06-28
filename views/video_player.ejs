@@ -59,7 +59,7 @@
                         <% if(currentUser && currentUser.type == "seller" || video[0].price == null){ %>
 
                          <%}else if(currentUser && transaction.includes(currentUser.username) == true){ %>
-                             <input type="button" onClick="location.href='<%=video[0].path%>'" class="btn btn_yellow" value="Download">
+                             <a href="<%=video[0].path%>" download><input type="button" class="btn btn_yellow" value="Download"></a>
                         <%} else if(currentUser && currentUser.type == "buyer") {%>
                              <button id="modal_trigger_buy" href="#buy_modal" class="btn btn_red">Buy</button>
                         <%} else {%>

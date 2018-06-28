@@ -7,6 +7,35 @@
                 <h1 class="title">All Uploads</h1>
             </div>
         </div>
+
+
+      
+            <form action="/search" method="GET" role="search">
+               <label for="videoCatSelect">Filter by category:</label>
+        <div class="row" id="videoFilterRow">
+            <div class="form-group col-md-4" id="catSelect">
+                <select class="form-control" name="searchTerm" type="text">
+                    <option>Select one of these</option>
+                    <option value="Animals">Animals</option>
+                    <option value="Politics">Politics</option>
+                    <option value="Entertainment">Entertainment</option>
+                    <option value="Crime">Crime</option>
+                    <option value="Accidents">Accidents</option>
+                    <option value="Weather/Nature">Weather/Nature</option>
+                    <option value="Sport">Sport</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group col-md-12"></div>
+            <button id="filterButton" class="btn btn-primary" type="submit">Filter</button>
+        </div>
+            </form>
+      
+
+
+
+
+        
         <div class="row">
             <%  for (var i = 0; i < videos.length; i++){ %>
 
@@ -14,7 +43,7 @@
                     <div id="tile">
                         <label>
                             <a id="vidLink" href="/videos/<%=videos[i]._id%>">
-                                <video width="100%" height="80%">
+                                <video >
                                     <source src="<%=videos[i].path%>" type="video/mp4">
                                 </video>
 

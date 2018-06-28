@@ -81,16 +81,10 @@ router.post("/api/file-upload",upload.single("videoUpload"), function(req, res){
  }
 )
 
-
-
-
-
-
-router.get("api/videos/all/", function (req, res) {
+router.get("/api/videos/all", function (req, res) {
 
     video.find({}, function (err, data) {
-
-        res.json(data)
+        res.send(data)
     })
 })
 

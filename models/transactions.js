@@ -13,6 +13,9 @@ var transactionSchema = new mongoose.Schema({
     videoPrice:{
         type: Number
     },
+    videoTitle:{
+        type: String
+    },
     priceAfterFee:{
         type: Number
     },

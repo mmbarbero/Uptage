@@ -1,5 +1,3 @@
-
-
 var mongo = require('mongodb');
 var express = require("express");
 var router = express.Router();
@@ -10,53 +8,105 @@ var Transaction = require("../models/transactions");
 
 router.get("/dashboard/:username/account_info", isLoggedIn, function (req, res) {
 
-    var username = req.params.username 
+    var username = req.params.username
 
-    User.find({ "username": username }, function (err, data) {
+    User.find({
+        "username": username
+    }, function (err, data) {
 
-        res.render("account_info", { user: data })
+        res.render("account_info", {
+            user: data
+        })
     })
 })
 
-router.get("/dashboard/:username/my_videos", isLoggedIn, function (req, res){
-    
+router.get("/dashboard/:username/my_videos", isLoggedIn, function (req, res) {
+
     var type = req.user.type
     var username = req.params.username
     var videos = []
     var ObjectId = require("mongoose").Types.ObjectId;
 
-    if(type == "buyer"){
-        
-        Transaction.find({"buyerID": "buyer"}, "videoID", function(err, docs){  
+    if (type == "buyer") {
 
-            var ids = docs.map(function(doc){return doc.videoID})
-    
+        Transaction.find({
+            "buyerID": "buyer"
+        }, "videoID", function (err, docs) {
 
-            Video.find({ _id: {$in: ids}}, function(err, videos){
-             
+            var ids = docs.map(function (doc) {
+                return doc.videoID
+            })
 
-                res.render("user_videos", { videos: videos })
+
+            Video.find({
+                _id: {
+                    $in: ids
+                }
+            }, function (err, videos) {
+
+
+                res.render("user_videos", {
+                    videos: videos
+                })
 
             })
         })
 
-    }else{
+    } else {
         console.log("not buyer")
-        Video.find({ "author": username }, function (err, data) {
+        Video.find({
+            "author": username
+        }, function (err, data) {
 
-            res.render("user_videos", { videos: data })
+            res.render("user_videos", {
+                videos: data
+            })
         })
-    }    
+    }
 })
+
+router.get("/dashboard/:username/:userType/transactions", isLoggedIn, function (req, res) {
+    var username = req.params.username
+    var userType = req.params.userType
+
+    if (userType == "seller") {
+
+        Transaction.find({
+            "sellerID": username
+        }, function (err, data) {
+            
+            res.render("transactions", {
+                trans: data
+            })
+        })
+    } else if (userType == "buyer") {
+
+        console.log(userType)
+
+        Transaction.find({
+            "buyerID": username
+        }, function (err, data) {
+            console.log(data)
+            res.render("transactions", {
+                trans: data
+            })
+        })
+    } else if(userType == "admin"){
+        Transaction.find({}, function (err, data) {
+
+            res.render("transactions", {
+                trans: data
+            })
+        })
+    }
+})
+
 
 router.get("/dashboard/:username/statistics", isLoggedIn, function (req, res) {
 
-        res.render("statistics")
-    })
 
-router.get("/dashboard/:username/transactions", isLoggedIn, function (req, res) {
 
-    res.render("transactions")
+    res.render("statistics")
 })
 
 function isLoggedIn(req, res, next) {

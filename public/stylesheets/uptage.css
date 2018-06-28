@@ -23,6 +23,14 @@ body {
     width: 1000px;
     height: 600px;
 }
+#butMap{
+    font-weight: 400;
+    font-size: 20px;
+}
+#selMap{
+    font-weight: 400;
+    font-size: 20px;
+}
 
 .tags {
     background-color: white;
@@ -208,7 +216,7 @@ body {
     display: inline-block;
     text-align: center;
     padding-right:0;
-    width:350px;
+    width:280px;
 }
 
 #createAccountBut {
@@ -420,4 +428,13 @@ a.btn_red {
     margin-top: 50px;
     z-index: 1;
     margin-bottom: 0;
+}
+
+#videoFilterRow{
+    margin-top:10px;
+}
+#filterButton{
+    height: 33px;
+    background-color: #ED6347;
+    border:none;
 }

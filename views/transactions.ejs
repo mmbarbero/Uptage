@@ -3,7 +3,7 @@
     <div id="mySidenav" class="sidenav">
         <a href="/dashboard/<%= currentUser.username%>/account_info">Account Info</a>
         <a href="/dashboard/<%= currentUser.username%>/statistics" >Statistics</a>
-        <a href="/dashboard/<%= currentUser.username%>/transactions" class="active-page">Transactions</a>
+        <a href="/dashboard/<%= currentUser.username%>/<%= currentUser.type%>/transactions" class="active-page">Transactions</a>
         <a href="/dashboard/<%= currentUser.username%>/my_videos">My videos</a>
     </div>
 
@@ -11,8 +11,43 @@
         <div id="dashboardContainer">
             <div class="container-fluid">
                 <h1>Transactions</h1>
+               <table class="table table-hover table-condensed">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Video ID</th>
+        <th>Title</th>
+        <% if (currentUser.type && currentUser.type == "seller"){ %>
+            <th>Buyer Name </th>
+            <% }else if (currentUser.type && currentUser.type == "buyer"){ %>
+        <th>Seller Name </th>
+        <% } %>
+        <th>Video Price</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for (var i = 0; i < trans.length; i++){ %>
 
-                There isn't anything here yet.
+        <tr>
+        <td><%var fulldate = trans[i].date %>
+            <%=fulldate.toISOString().substring(0, 10) %>
+            <%=fulldate.toISOString().substring(11, 16) %> </td>
+        <td><%= trans[i].videoID %></td>
+        <td><%= trans[i].videoTitle %></td>
+         <td> <% if (currentUser.type && currentUser.type == "seller"){ %>
+            <%= trans[i].buyerID %>
+            <% }else if (currentUser.type && currentUser.type == "buyer"){ %>
+        <%= trans[i].sellerID %>
+        <% } %></td>
+        <td><%= trans[i].videoPrice %></td>
+        </tr>
+
+    <% } %>
+   
+    </tbody>
+  </table>
+</div>
+  
 
             </div>
         </div>

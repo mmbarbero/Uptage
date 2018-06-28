@@ -14,8 +14,8 @@
             onAdd: function(map) {
                 var container = L.DomUtil.create('input');
                 container.type = "button";
-                container.title = "Go to Santos";
-                container.value = "Santos";
+                container.title = "Zoom out";
+                container.value = "Zoom out";
                 container.onmouseover = function() {
                     container.style.backgroundColor = 'pink';
                 }
@@ -24,7 +24,7 @@
                 }
                 container.onclick = function() {
                     console.log('buttonClicked');
-                    map.setView([38.706741, -9.152644], 16);
+                    map.setView([38.706741, -9.152644], 2);
                 }
 
                 return container;
@@ -88,7 +88,7 @@
         legend.onAdd = function(map) {
           
                 var div = L.DomUtil.create('div', 'info legend');
-                div.innerHTML = '<select id="pins"><% for (var i = 0; i < videos.length; i++){ %><option value="<%=videos[i].location.coordinates%>"><%=videos[i].title%></option><% } %></select><button onclick="goTo()">go</button>';
+                div.innerHTML = '<select id="selMap"><% for (var i = 0; i < videos.length; i++){ %><option  value="<%=videos[i].location.coordinates%>"><%=videos[i].title%></option><% } %></select><button id="butMap" onclick="goTo()">go</button>';
                 div.firstChild.onmousedown = div.firstChild.ondblclick = L.DomEvent.stopPropagation;
                 return div;
         }

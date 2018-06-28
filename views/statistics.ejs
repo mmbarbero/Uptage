@@ -3,7 +3,7 @@
     <div id="mySidenav" class="sidenav">
         <a href="/dashboard/<%= currentUser.username%>/account_info" >Account Info</a>
         <a href="/dashboard/<%= currentUser.username%>/statistics" class="active-page">Statistics</a>
-        <a href="/dashboard/<%= currentUser.username%>/transactions">Transactions</a>
+        <a href="/dashboard/<%= currentUser.username%>/<%= currentUser.type%>/transactions">Transactions</a>
         <a href="/dashboard/<%= currentUser.username%>/my_videos">My videos</a>
     </div>
 

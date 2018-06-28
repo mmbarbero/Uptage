@@ -20,6 +20,7 @@ router.get("/videos/:id", function(req, res){
         })  
 })
 
+
 router.get("/videos/:id/buy",isLoggedIn, requireRole("buyer"), function (req, res) {
 
     var videoUrl = req.params.id;
@@ -33,6 +34,7 @@ router.get("/videos/:id/buy",isLoggedIn, requireRole("buyer"), function (req, re
         sellerID: data[0].author,
         videoID: data[0]._id,
         videoPrice: data[0].price,
+        videoTitle: data[0].title,
         priceAfterFee: data[0].price - (data[0].price*0.3),
         date: date.toISOString()
         }
